@@ -1,0 +1,19 @@
+name: animated_indexed_stack
+description: A new Flutter package project.
+version: 0.0.1
+homepage: https://jas.bio
+repository: https://github.com/jascodes/animated_indexed_stack
+issue_tracker: https://github.com/jascodes/animated_indexed_stack/issues
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
