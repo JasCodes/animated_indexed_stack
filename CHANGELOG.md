@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.0.3] - 2020 Aug 25
+
+* Fix expamle
+
 ## [0.0.2] - 2020 Aug 25
 
 * Added pageBuilderList as alternative to children
