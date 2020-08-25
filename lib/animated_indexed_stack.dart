@@ -62,7 +62,7 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
       final _uniqueKey = UniqueKey();
       // Store initial index order
       _pageIndexToKeyMap[_index] = _uniqueKey;
-      print(_pageIndexToKeyMap);
+      // print(_pageIndexToKeyMap);
 
       AnimationController animation = new AnimationController(
         vsync: this,
@@ -135,8 +135,8 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
 
       if (_sortTime == SORT_TIME.before) _pages.sort(s);
 
-      print(_prevPage);
-      print(_selectedIndex);
+      // print(_prevPage);
+      // print(_selectedIndex);
 
       _secondaryAnimationControllerList[currKey].reset();
       if (!_animationControllerList[currKey].isAnimating)
