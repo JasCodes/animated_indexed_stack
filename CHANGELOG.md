@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.0.4] - 2020 Aug 25
+
+* Remove example defalut readme
+
 ## [0.0.3] - 2020 Aug 25
 
 * Fix expamle
