@@ -5,17 +5,17 @@ import 'package:animated_indexed_stack/animated_indexed_stack.dart';
 main() {
   runApp(
     MaterialApp(
-      home: Sw(),
+      home: SimpleTabSelector(),
     ),
   );
 }
 
-class Sw extends StatefulWidget {
+class SimpleTabSelector extends StatefulWidget {
   @override
-  _SwState createState() => _SwState();
+  _SimpleTabSelectorState createState() => _SimpleTabSelectorState();
 }
 
-class _SwState extends State<Sw> {
+class _SimpleTabSelectorState extends State<SimpleTabSelector> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -23,19 +23,19 @@ class _SwState extends State<Sw> {
       body: AnimatedIndexedStack(
         selectedIndex: index,
         children: <Widget>[
-          Page(
+          ColoredPage(
             title: "Red",
             color: Colors.red,
           ),
-          Page(
+          ColoredPage(
             title: "Green",
             color: Colors.green,
           ),
-          Page(
+          ColoredPage(
             title: "Pink",
             color: Colors.pink,
           ),
-          Page(
+          ColoredPage(
             title: "Grey",
             color: Colors.grey,
           ),
@@ -70,10 +70,10 @@ class _SwState extends State<Sw> {
   }
 }
 
-class Page extends StatelessWidget {
+class ColoredPage extends StatelessWidget {
   final String title;
   final Color color;
-  const Page({
+  const ColoredPage({
     Key key,
     this.title,
     this.color,
