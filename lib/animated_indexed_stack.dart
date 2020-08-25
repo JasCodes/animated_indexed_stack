@@ -5,15 +5,16 @@ import 'package:animated_indexed_stack/stack_page.dart';
 
 class AnimatedIndexedStack extends StatefulWidget {
   @required
-  final List<Widget> children;
-  @required
   final int selectedIndex;
+  final List<Widget> children;
+  final List<RoutePageBuilder> pageBuilderList;
   final Duration duration;
   final RouteTransitionsBuilder transitionBuilder;
   final SORT_TIME sortTime;
 
   const AnimatedIndexedStack({
     Key key,
+    this.pageBuilderList,
     this.children,
     this.selectedIndex,
     this.transitionBuilder,
@@ -29,6 +30,9 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
     with TickerProviderStateMixin {
   Map<int, Key> _pageIndexToKeyMap = new Map<int, Key>();
   List<Widget> _pages;
+  List<dynamic> _list;
+  int _selectedIndex;
+
   int _prevPage = 1;
   Map<Key, AnimationController> _animationControllerList =
       new Map<Key, AnimationController>();
@@ -38,9 +42,21 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
   @override
   void initState() {
     final _duration = widget.duration ?? const Duration(milliseconds: 500);
-    _pages = widget.children.asMap().entries.map((entry) {
+    //Guards: Check if one of required property children or pageBuilder is not null and exactly one is given
+    if (widget.children == null && widget.pageBuilderList == null) {
+      throw Exception("Either children or pageBuilderList must be provided");
+    }
+    if (widget.children != null && widget.pageBuilderList != null) {
+      throw Exception(
+          "Only one property is allowed, either children or pageBuilderList");
+    }
+    if (widget.children != null) {
+      _list = widget.children;
+    } else {
+      _list = widget.pageBuilderList;
+    }
+    _pages = _list.asMap().entries.map((entry) {
       final _index = entry.key;
-      final _child = entry.value;
 
       // Gerate Unique keys
       final _uniqueKey = UniqueKey();
@@ -59,10 +75,15 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
 
       _animationControllerList[_uniqueKey] = animation;
       _secondaryAnimationControllerList[_uniqueKey] = animationSecondary;
+      final _child = entry.value is RoutePageBuilder
+          ? (entry.value as RoutePageBuilder)(
+              context, animation, animationSecondary)
+          : entry.value as Widget;
 
       return StackPage(
         key: _uniqueKey,
         child: _child,
+        transitionsBuilder: widget.transitionBuilder,
         animation: animation,
         animationSecondary: animationSecondary,
       );
@@ -87,9 +108,21 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Add selected Index guard.
-    if (_prevPage != widget.selectedIndex) {
-      final currKey = _pageIndexToKeyMap[widget.selectedIndex];
+    _selectedIndex = widget.selectedIndex ?? 0;
+
+    /// Guards
+    if (_list.length < 2) {
+      throw Exception("Atleast 2 children must be provided.");
+    }
+    if (_selectedIndex >= _list.length || _selectedIndex < 0) {
+      throw Exception(
+          "Index out of bounds. Selected index must be between index of length of children i.e 0..${_list.length - 1}");
+    }
+
+    ///
+
+    if (_prevPage != _selectedIndex) {
+      final currKey = _pageIndexToKeyMap[_selectedIndex];
       final prevKey = _pageIndexToKeyMap[_prevPage];
       Function s = (a, b) {
         if (a.key == currKey) return 2;
@@ -103,7 +136,7 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
       if (_sortTime == SORT_TIME.before) _pages.sort(s);
 
       print(_prevPage);
-      print(widget.selectedIndex);
+      print(_selectedIndex);
 
       _secondaryAnimationControllerList[currKey].reset();
       if (!_animationControllerList[currKey].isAnimating)
@@ -118,8 +151,8 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
       });
       // print(_pages);
       // print(_map);
-      // print(widget.selectedIndex);
-      _prevPage = widget.selectedIndex;
+      // print(_selectedIndex);
+      _prevPage = _selectedIndex;
     }
     return Container(
       color: Colors.grey,

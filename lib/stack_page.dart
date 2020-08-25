@@ -34,7 +34,11 @@ class _StackPageState extends State<StackPage> {
   Widget build(BuildContext context) {
     final transitionsBuilder = widget.transitionsBuilder ?? defaultTransition;
     return transitionsBuilder(
-        context, widget.animation, widget.animationSecondary, widget.child);
+      context,
+      widget.animation,
+      widget.animationSecondary,
+      widget.child,
+    );
   }
 }
 
