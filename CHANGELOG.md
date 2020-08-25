@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.0.5] - 2020 Aug 25
+
+* Add README.md to example
+
 ## [0.0.4] - 2020 Aug 25
 
 * Remove example defalut readme
