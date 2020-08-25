@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.0.6] - 2020 Aug 25
+
+* Add descrition to pubspec.yaml
+  
 ## [0.0.5] - 2020 Aug 25
 
 * Add README.md to example
