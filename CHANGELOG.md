@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [0.0.7] - 2020 Sep 30
+
+* Remove hardcode grey color
+* Add windows example
+
 ## [0.0.6] - 2020 Aug 25
 
 * Add descrition to pubspec.yaml
