@@ -154,12 +154,9 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
       // print(_selectedIndex);
       _prevPage = _selectedIndex;
     }
-    return Container(
-      color: Colors.grey,
-      child: GestureDetector(
-        child: Stack(
-          children: _pages,
-        ),
+    return GestureDetector(
+      child: Stack(
+        children: _pages,
       ),
     );
   }

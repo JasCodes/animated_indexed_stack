@@ -20,26 +20,29 @@ class _SimpleTabSelectorState extends State<SimpleTabSelector> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedIndexedStack(
-        selectedIndex: index,
-        children: <Widget>[
-          ColoredPage(
-            title: "Red",
-            color: Colors.red,
-          ),
-          ColoredPage(
-            title: "Green",
-            color: Colors.green,
-          ),
-          ColoredPage(
-            title: "Pink",
-            color: Colors.pink,
-          ),
-          ColoredPage(
-            title: "Grey",
-            color: Colors.grey,
-          ),
-        ],
+      body: Container(
+        color: Colors.blueGrey[100],
+        child: AnimatedIndexedStack(
+          selectedIndex: index,
+          children: <Widget>[
+            ColoredPage(
+              title: "Red",
+              color: Colors.red,
+            ),
+            ColoredPage(
+              title: "Green",
+              color: Colors.green,
+            ),
+            ColoredPage(
+              title: "Pink",
+              color: Colors.pink,
+            ),
+            ColoredPage(
+              title: "Grey",
+              color: Colors.grey,
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
