@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [1.0.0] - 2022 May 26
+* Renamed selectedIndex to index, for interoperability with IndexedStack
+* Added null safety
+* Updated to Dart 2.16
+
 ## [0.0.7] - 2020 Sep 30
 
 * Remove hardcode grey color
