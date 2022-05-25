@@ -6,7 +6,7 @@ repository: https://github.com/jascodes/animated_indexed_stack
 issue_tracker: https://github.com/jascodes/animated_indexed_stack/issues
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
   flutter:

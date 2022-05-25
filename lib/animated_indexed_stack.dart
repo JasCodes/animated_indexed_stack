@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:animated_indexed_stack/stack_page.dart';
 
 class AnimatedIndexedStack extends StatefulWidget {
+
   @required
-  final int selectedIndex;
-  final List<Widget> children;
-  final List<RoutePageBuilder> pageBuilderList;
-  final Duration duration;
-  final RouteTransitionsBuilder transitionBuilder;
-  final SORT_TIME sortTime;
+  final int? index;
+  final List<Widget>? children;
+  final List<RoutePageBuilder>? pageBuilderList;
+  final Duration? duration;
+  final RouteTransitionsBuilder? transitionBuilder;
+  final SORT_TIME? sortTime;
 
   const AnimatedIndexedStack({
-    Key key,
+    Key? key,
     this.pageBuilderList,
     this.children,
-    this.selectedIndex,
+    this.index,
     this.transitionBuilder,
     this.sortTime,
     this.duration,
@@ -28,10 +29,11 @@ class AnimatedIndexedStack extends StatefulWidget {
 
 class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
     with TickerProviderStateMixin {
+
   Map<int, Key> _pageIndexToKeyMap = new Map<int, Key>();
-  List<Widget> _pages;
-  List<dynamic> _list;
-  int _selectedIndex;
+  List<Widget>? _pages;
+  List<dynamic>? _list;
+  int? _selectedIndex;
 
   int _prevPage = 1;
   Map<Key, AnimationController> _animationControllerList =
@@ -51,11 +53,11 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
           "Only one property is allowed, either children or pageBuilderList");
     }
     if (widget.children != null) {
-      _list = widget.children;
+      _list = widget.children!;
     } else {
-      _list = widget.pageBuilderList;
+      _list = widget.pageBuilderList!;
     }
-    _pages = _list.asMap().entries.map((entry) {
+    _pages = _list!.asMap().entries.map((entry) {
       final _index = entry.key;
 
       // Gerate Unique keys
@@ -108,15 +110,15 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
 
   @override
   Widget build(BuildContext context) {
-    _selectedIndex = widget.selectedIndex ?? 0;
+    _selectedIndex = widget.index ?? 0;
 
     /// Guards
-    if (_list.length < 2) {
+    if (_list!.length < 2) {
       throw Exception("Atleast 2 children must be provided.");
     }
-    if (_selectedIndex >= _list.length || _selectedIndex < 0) {
+    if (_selectedIndex! >= _list!.length || _selectedIndex! < 0) {
       throw Exception(
-          "Index out of bounds. Selected index must be between index of length of children i.e 0..${_list.length - 1}");
+          "Index out of bounds. Selected index must be between index of length of children i.e 0..${_list!.length - 1}");
     }
 
     ///
@@ -124,7 +126,7 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
     if (_prevPage != _selectedIndex) {
       final currKey = _pageIndexToKeyMap[_selectedIndex];
       final prevKey = _pageIndexToKeyMap[_prevPage];
-      Function s = (a, b) {
+      int Function(Widget, Widget) s = (a, b) {
         if (a.key == currKey) return 2;
         if (b.key == currKey) return -2;
         if (a.key == prevKey) return 1;
@@ -133,30 +135,27 @@ class _AnimatedIndexedStackState extends State<AnimatedIndexedStack>
       };
       final _sortTime = widget.sortTime ?? SORT_TIME.after;
 
-      if (_sortTime == SORT_TIME.before) _pages.sort(s);
+      if (_sortTime == SORT_TIME.before) _pages!.sort(s);
 
-      // print(_prevPage);
-      // print(_selectedIndex);
+      _secondaryAnimationControllerList[currKey]!.reset();
+      if (!_animationControllerList[currKey]!.isAnimating)
+        _animationControllerList[currKey]!.reset();
 
-      _secondaryAnimationControllerList[currKey].reset();
-      if (!_animationControllerList[currKey].isAnimating)
-        _animationControllerList[currKey].reset();
-
-      _secondaryAnimationControllerList[prevKey].forward().orCancel;
-      _animationControllerList[currKey].forward().orCancel.whenComplete(() {
+      _secondaryAnimationControllerList[prevKey]!.forward().orCancel;
+      _animationControllerList[currKey]!.forward().orCancel.whenComplete(() {
         if (_sortTime == SORT_TIME.after)
           setState(() {
-            _pages.sort(s);
+            _pages!.sort(s);
           });
       });
       // print(_pages);
       // print(_map);
       // print(_selectedIndex);
-      _prevPage = _selectedIndex;
+      _prevPage = _selectedIndex!;
     }
     return GestureDetector(
       child: Stack(
-        children: _pages,
+        children: _pages!,
       ),
     );
   }

@@ -23,7 +23,7 @@ class _SimpleTabSelectorState extends State<SimpleTabSelector> {
       body: Container(
         color: Colors.blueGrey[100],
         child: AnimatedIndexedStack(
-          selectedIndex: index,
+          index: index,
           children: <Widget>[
             ColoredPage(
               title: "Red",
@@ -49,19 +49,19 @@ class _SimpleTabSelectorState extends State<SimpleTabSelector> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.collections),
-            title: Text('Red'),
+            label: 'Red',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.collections),
-            title: Text('Green'),
+            label: 'Green',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.collections),
-            title: Text('Megenta'),
+            label: 'Megenta',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.collections),
-            title: Text('Grey'),
+            label: 'Grey',
           ),
         ],
         currentIndex: index,
