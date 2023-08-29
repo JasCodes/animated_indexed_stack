@@ -2,24 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:animated_indexed_stack/route_transitions.dart';
 
 class StackPage extends StatefulWidget {
-  @required
+
   final Widget child;
-  final RouteTransitionsBuilder transitionsBuilder;
-  final Animation animation;
-  final Animation animationSecondary;
+  final RouteTransitionsBuilder? transitionsBuilder;
+  final Animation<double> animation;
+  final Animation<double> animationSecondary;
+
   const StackPage({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
     this.transitionsBuilder,
-    this.animation,
-    this.animationSecondary,
+    required this.animation,
+    required this.animationSecondary,
   }) : super(key: key);
 
   @override
   _StackPageState createState() => _StackPageState();
+
 }
 
 class _StackPageState extends State<StackPage> {
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +43,7 @@ class _StackPageState extends State<StackPage> {
       widget.child,
     );
   }
+
 }
 
 final defaultTransition = materialTabTransition;

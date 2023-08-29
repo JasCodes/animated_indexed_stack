@@ -1,12 +1,12 @@
 name: animated_indexed_stack
 description: AnimatedIndexedStack is alternative of IndexedStack with ability to provide custom transitions on index change; by providing RouteTransitionsBuilder. Each child of stack can also be manually built using named parameter pageBuilderList which is list of RoutePageBuilder.
-version: 0.0.7
+version: 1.0.0
 homepage: https://jas.bio
 repository: https://github.com/jascodes/animated_indexed_stack
 issue_tracker: https://github.com/jascodes/animated_indexed_stack/issues
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
   flutter:
